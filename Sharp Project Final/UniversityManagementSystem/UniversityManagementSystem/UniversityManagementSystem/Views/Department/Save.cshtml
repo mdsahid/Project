@@ -1,0 +1,120 @@
+﻿@model UniversityManagementSystem.Models.Department
+
+@{
+    ViewBag.Title = "Save";
+}
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<link href="~/Content/Validationcss.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/materialize/materialize.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<style>
+    .SizeA{
+        overflow:hidden;
+        margin-bottom:250px;
+    }
+   
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <br />
+    <br />
+    <br />
+    @*<div class="form-horizontal SizeA" >
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Department</div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.depCode, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.depName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.depName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.depName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-lg" />
+                </div>
+            </div>
+
+            <div class="col-md-offset-5 col-md-10" style="color:green">
+                @ViewBag.Message
+
+            </div>
+            <div class="col-md-offset-5 col-md-10" style="color:red">
+                @ViewBag.errMessage
+
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+    <div>
+
+
+        <div class="">
+            <div class="modal-dialog" style="margin-bottom:0">
+                <div class="modal-content">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Department</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" name="myForm">
+                            <fieldset>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.depCode, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.depName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.depName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.depName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" class="btn btn-success" />
+                                    </div>
+                                </div>
+                                <div class="col-md-offset-5 col-md-10" style="color:green">
+                                    @ViewBag.Message
+
+                                </div>
+                                <div class="col-md-offset-5 col-md-10" style="color:red">
+                                    @ViewBag.errMessage
+
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+

@@ -1,0 +1,129 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteView.master.cs" Inherits="DiagonisticCenterBillManagementSystem.MasterPage.SiteView" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <%--<asp:ContentPlaceHolder ID="head" runat="server">--%>
+    <%--<link href="../Content/bootstrap.min.css" rel="stylesheet" />--%>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+    <link href="../Content/AdminLTE.min.css" rel="stylesheet" />
+    <link href="../Content/skin-blue.min.css" rel="stylesheet" />
+    <style>
+        .col-md-6, .col-md-9, .col-md-4 {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        table th {
+            width: 10px !important;
+        }
+
+        table td {
+            width: 10px !important;
+        }
+
+        /*.col-md-5 {
+            margin-left:10px;
+        }*/
+        .panel-heading {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+
+    <%--</asp:ContentPlaceHolder>--%>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Main Header -->
+        <header class="main-header">
+
+            <!-- Logo -->
+            <a href="../UI/Default.aspx" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span><b>S</b>harp</span>
+                <!-- logo for regular state and mobile devices -->
+                <span ><b>Center</b></span>
+            </a>
+
+        
+
+
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+
+
+               
+                <ul class="sidebar-menu">
+                    <li class="header">HEADER</li>
+                   <li><a href="../UI/Default.aspx"><span>Home</span></a></li>
+                    <li><a href="TestTypes.aspx"><span>Type</span></a></li>
+                    <li><a href="Test.aspx"><span>Test</span></a></li>
+                    <li><a href="Patient.aspx"><span>Test-Request Entry</span></a></li>
+                    <li><a href="Payment.aspx"><span>Payment</span></a></li>
+                    <li class="treeview">
+                        <a href="#"><span>Report</span>
+                            <span class="pull-right-container">
+                                
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="TypeReport.aspx"><span>Type Report</span></a></li>
+                            <li><a href="TestReport.aspx"><span>Test Report</span></a></li>
+                            <li><a href="UnPaidBillReport.aspx"><span>Unpaid-Bill Report</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+           
+            <!-- Main content -->
+            <section class="content">
+                <form runat="server">
+
+
+                    <asp:ContentPlaceHolder ID="cpMainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </form>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                <b>Developed by Md. Sahid Hossain (Jahid)</b>
+
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2017 <a href="#">DCMS</a>.</strong> All rights reserved.
+ 
+        </footer>
+
+
+    </div>
+    <script src="../Scripts/jquery-1.9.1.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/app.min.js"></script>
+</body>
+</html>
+

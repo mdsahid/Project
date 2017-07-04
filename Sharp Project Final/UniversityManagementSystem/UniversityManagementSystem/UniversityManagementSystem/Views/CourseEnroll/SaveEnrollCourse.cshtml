@@ -1,0 +1,140 @@
+﻿@model UniversityManagementSystem.Models.StudentCourseEnroll
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 180px;
+    }
+</style>
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+
+
+<br />
+<br />
+<body>
+
+    <form method="post" id="enrollSubmit">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="form-horizontal SizeA">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Enroll Course</div>
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentRegNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.StudentID, ViewBag.StudentRegNo as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.StudentName, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.StudentEmail, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.StudentEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.depName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.depName, new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.depName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CourseID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("CourseID", new SelectList(string.Empty, "Value", "Text"), "--Select Course--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CourseID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Dates, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Dates, new { @class = "form-control", })
+                        @Html.ValidationMessageFor(model => model.Dates, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div id="Message">
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Enroll" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-md-offset-5 col-md-10" style="color:Green">
+                    @ViewBag.Message
+
+                </div>
+                <div class="col-md-offset-5 col-md-10" style="color:red">
+                    @ViewBag.errMessage
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    
+    <script>
+        $('#Dates').datepicker({
+            dateFormat: 'yy/mm/dd',
+            changeMonth: true,
+            changeYear: true
+        });
+        $("#StudentID").change(function () {
+
+            $("#StudentName").empty();
+            $("#StudentEmail").empty();
+            $("#depName").empty();
+            $("#CourseID").empty();
+            var studentID = $("#StudentID").val();
+            $.get("GetStudentInfo", { StudentID: studentID },
+
+                function (data) {
+                    $("#StudentName").val(data.StudentName);
+                    $("#StudentEmail").val(data.StudentEmail);
+                    $("#depName").val(data.depName);
+                    var depName = $("#depName").val();
+                    $.ajax({
+                        type: 'POST',
+                        url: "GetCourseByDepName",
+                        dataType: 'json',
+                        data: { depName: depName },
+                        cache: false,
+                        success: function (data) {
+                            $.each(data, function (c, cour) {
+                                $("#CourseID").append('<option value="' + cour.Value + '">' + cour.Text + '</option>')
+                            })
+                        }
+                    })
+                })
+
+        })
+
+    </script>
+
+  
+</body>

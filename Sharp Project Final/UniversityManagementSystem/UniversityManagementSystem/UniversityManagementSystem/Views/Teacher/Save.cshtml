@@ -1,0 +1,113 @@
+﻿@model UniversityManagementSystem.Models.Teacher
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 150px;
+    }
+</style>
+
+<link href="~/Content/Validationcss.css" rel="stylesheet" />
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <br />
+    
+   
+
+
+    <div class="">
+        <div class="modal-dialog" style="margin-bottom:0">
+            <div class="modal-content">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Create Teacher</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" name="myForm">
+                        <fieldset>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.teacherName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.teacherName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.teacherName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.teacherAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.teacherAddress, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.teacherAddress, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.teacherEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.teacherEmail, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.teacherEmail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.teacherContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.teacherContactNo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.teacherContactNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CreditToBeTaken, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(c => c.CreditToBeTaken, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CreditToBeTaken, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(c => c.depCode, ViewBag.departments as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DesignationID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(c => c.DesignationID, ViewBag.designation as IEnumerable<SelectListItem>, "-----Select Designation-----", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DesignationID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                            <div class="col-md-offset-5 col-md-10" style="color:green">
+                                @ViewBag.Message
+
+                            </div>
+                            <div class="col-md-offset-5 col-md-10" style="color:red">
+                                @ViewBag.errMessage
+
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+

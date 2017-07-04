@@ -1,0 +1,105 @@
+﻿@model IEnumerable<UniversityManagementSystem.Models.Department>
+
+@{
+    ViewBag.Title = "All Department";
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 200px;
+    }
+
+    tr th, td {
+        text-align: center;
+    }
+</style>
+<br />
+<br />
+<br />
+<p>
+    @Html.ActionLink("Create New Department", "Save")
+</p>
+<br />
+<style>
+    /*
+    }*/
+</style>
+
+@*<div class="panel panel-default SizeA">
+    <div class="panel-heading text-center">All Departments</div>
+    <table class="table table-striped">
+        <thead>
+            <tr class="danger">
+                <th>
+                    @Html.DisplayNameFor(model => model.depCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.depName)
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="success">
+                <td>
+                    @Html.DisplayFor(modelItem => item.depCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.depName)
+                </td>
+
+
+            </tr>
+
+
+            }
+        </tbody>
+
+    </table>
+</div>*@
+
+
+
+<div class="">
+    <div class="modal-dialog" style="margin-bottom:0">
+        <div class="modal-content">
+            <div class="panel-heading">
+                <h3 class="panel-title">All Departments</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr class="danger">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.depCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.depName)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+            {
+                                <tr class="default" style="background-color:bisque">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.depCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.depName)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </div>
+</div>

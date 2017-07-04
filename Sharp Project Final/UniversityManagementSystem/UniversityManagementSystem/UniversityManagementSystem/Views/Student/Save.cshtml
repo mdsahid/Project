@@ -1,0 +1,183 @@
+﻿@using UniversityManagementSystem.Models;
+@model UniversityManagementSystem.Models.Student
+
+@{
+    ViewBag.Title = "Create";
+    Student student = ViewBag.Student;
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 150px;
+    }
+
+    .SizeB {
+        overflow: hidden;
+        margin-bottom: 250px;
+    }
+</style>
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<link href="~/Content/datepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <br />
+    <br />
+    
+    <div id="HideForm">
+        <div class="form-horizontal SizeA">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Student Registration</div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.studentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.studentName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.studentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.studentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.studentEmail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.studentEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.studentContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.studentContactNo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.studentContactNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.regDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.regDate, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.regDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.studentAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(c => c.studentAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.studentAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(c => c.depCode, ViewBag.departments as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-md-offset-5 col-md-10" style="color:green">
+                    @ViewBag.Message
+
+                </div>
+                <div class="col-md-offset-5 col-md-10" style="color:red">
+                    @ViewBag.errMessage
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+}
+
+
+<div>
+    @if (ViewBag.Student != null)
+    {
+
+
+
+        <script>
+            $('#HideForm').hide();
+        </script>
+        <div class="form-horizontal SizeB">
+            <h2>Student Info</h2>
+            <div class="form-group">
+                <div class="display-label danger col-sm-2">
+                    <label>Student Name</label>
+                </div>
+                <div class="display-label  col-lg-10">
+                    <p class="form-control-static">@student.studentName</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="display-label danger  col-sm-2">
+                    <label>Registration No</label>
+                </div>
+                <div class="display-label col-lg-10">
+                    <p class="form-control-static">@student.RegistrationNo</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="display-label danger col-sm-2">
+                    <label>Email</label>
+                </div>
+                <div class="display-label col-lg-10">
+                    <p class="form-control-static">@student.studentEmail</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="display-label danger col-sm-2">
+                    <label>Contact No</label>
+                </div>
+                <div class="display-label col-lg-10">
+                    <p class="form-control-static">@student.studentContactNo</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="display-label danger  col-sm-2">
+                    <label>Address</label>
+                </div>
+                <div class="display-label  col-lg-10">
+                    <p class="form-control-static">@student.studentAddress</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="display-label danger col-sm-2">
+                    <label>Registration Date</label>
+                </div>
+                <div class="display-label col-lg-10">
+                    <p class="form-control-static">@student.regDate</p>
+                </div>
+            </div>
+           
+            <div>
+                @Html.ActionLink("Add New", "Save")
+            </div>
+        </div>
+
+
+    }
+</div>
+
+<script>
+    $('#regDate').datepicker({
+        dateFormat: 'yy/mm/dd',
+        changeMonth: true,
+        changeYear: true
+    });
+</script>
+
+

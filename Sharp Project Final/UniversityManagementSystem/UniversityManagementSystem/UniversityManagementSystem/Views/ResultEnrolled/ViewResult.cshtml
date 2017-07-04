@@ -1,0 +1,181 @@
+﻿@model UniversityManagementSystem.Models.StudentResultEnrolled
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 150px;
+    }
+</style>
+
+
+
+    
+       <br />
+        <br />
+
+        <form method="post" id="enrollSubmit">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            
+                <div class="form-horizontal SizeA">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">Show Result</div>
+                       
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StudentRegNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.StudentID, ViewBag.StudentRegNo as IEnumerable<SelectListItem>,"-----Select Reg No-----", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StudentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.StudentName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StudentEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.StudentEmail, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.StudentEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.depName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.depName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.depName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="PDF" onclick="ResultPdf()" class="btn btn-primary" />
+                            </div>
+                        </div>
+                       
+                        
+
+                        <div  id="tableDiv">
+                            <table id="viewStudentResult" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <th>Name</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+         </div>
+
+</form>
+    
+<script src="~/Scripts/jspdf.min.js"></script>
+<script>
+    function ResultPdf() {
+        var regNo = $('#StudentID option:selected').text();
+        var nam = $('#StudentName').val();
+        var email = $('#StudentEmail').val();
+        var dept = $('#depName').val();
+        var doc = new jsPDF();
+        doc.text(80, 20, 'Result Sheet');
+        doc.text(20, 40, 'Registration No. ' + regNo);
+        doc.text(20, 50, 'Name : ' + nam);
+        doc.text(20, 60, 'Email : ' + email);
+        doc.text(20, 70, 'Department : ' + dept);
+        doc.fromHTML($('#tableDiv').get(0), 20, 70);
+
+
+        doc.save('StudentResult.pdf');
+    }
+    $("#StudentID").change(function () {
+
+        $("#StudentName").empty();
+        $("#StudentEmail").empty();
+        $("#depName").empty();
+        $("#CourseID").empty();
+        $("#viewStudentResult tbody tr").remove();
+        var studentID = $("#StudentID").val();
+        $.get("GetStudentInfo", { StudentID: studentID },
+
+            function (data) {
+                $("#StudentName").val(data.StudentName);
+                $("#StudentEmail").val(data.StudentEmail);
+                $("#depName").val(data.depName);
+            })
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetStudentCourseResult")',
+            dataType: 'json',
+            data: { StudentId: studentID },
+            cache: false,
+            success: function (data) {
+                $.each(data, function (r, result) {
+                    var rows = "<tr>"
+                    + "<td>" + result.CourseCode + "</td>"
+                    + "<td>" + result.CourseName + "</td>"
+                    + "<td>" + result.CourseGrade + "</td>"
+                    + "</tr>";
+                    $("#viewStudentResult").append(rows);
+                })
+            }
+        })
+    })
+    function FillField() {
+        $("#Name").empty();
+        $("#Email").empty();
+        $("#Department").empty();
+        $("#viewStudentResult tbody tr").remove();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("StudentInformation")',
+            dataType: 'json',
+            data: { id: $("#Student").val() },
+            success: function (data) {
+                $("#Name").val(data.Name);
+                $("#Email").val(data.Email);
+                $("#Department").val(data.Department);
+            }
+        })
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ViewStudentResult")',
+            dataType: 'json',
+            data: { id: $("#Student").val() },
+            success: function (data) {
+                var results = '';
+                $.each(data, function (r, result) {
+                    var rows = "<tr>"
+                    + "<td>" + result.Course + "</td>"
+                    + "<td>" + result.CourseName + "</td>"
+                    + "<td>" + result.GradeLetter + "</td>"
+                    + "</tr>";
+                    $("#viewStudentResult").append(rows);
+                })
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+                alert("StackTrace: " + r.StackTrace);
+                alert("Execption Type: " + r.ExceptionType);
+            }
+        })
+        return false;
+    }
+</script>

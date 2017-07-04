@@ -1,0 +1,185 @@
+﻿@model UniversityManagementSystem.Models.CourseAssignViewModel
+
+@{
+    ViewBag.Title = "Save Assign Course ";
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 150px;
+    }
+</style>
+
+<link href="~/Content/Validationcss.css" rel="stylesheet" />
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+@*@using (Html.BeginForm())*@
+<form id="CourseAssign" method="post">
+
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <br />
+    <br />
+    <div class="form-horizontal SizeA">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Assign Course To Teacher</div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(c => c.depCode, ViewBag.departments as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TeacherID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("TeacherID", new SelectList(string.Empty, "Value", "Text"), "--Select Teacher--", new { @class = "form-control", @onchange = "FillCredit()" })
+                    @Html.ValidationMessageFor(model => model.TeacherID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TeacherCredit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.TeacherCredit, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.TeacherCredit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RemainingCredit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.RemainingCredit, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.RemainingCredit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+           
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourseID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CourseID", new SelectList(string.Empty, "Value", "Text"), "--Select Course--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CourseID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourseName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.CourseName, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourseCredit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.CourseCredit, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.CourseCredit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="col-md-offset-5 col-md-10" style="color:green">
+                @ViewBag.Message
+
+            </div>
+            <div class="col-md-offset-5 col-md-10" style="color:red">
+                @ViewBag.errMessage
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#depCode").change(function () {
+            var depCode = $(this).val();
+            $("#TeacherID").empty();
+            $.get("GetTeacherByDepartment", { depCode: depCode }, function (data) {
+
+                $.each(data, function (c, teacher) {
+                    $("#TeacherID").append('<option value="' + teacher.Value + '">' + teacher.Text + '</option>')
+                })
+
+            })
+            var depCode = $(this).val();
+            $("#CourseID").empty();
+            $.get("GetCourseByDepartment", { depCode: depCode }, function (data) {
+                $.each(data, function (c, course) {
+                    $("#CourseID").append('<option value="' + course.Value + '">' + course.Text + '</option>')
+                })
+
+            })
+        })
+
+
+    })
+    $("#TeacherID").change(function () {
+       
+        $("#TeacherCredit").empty();
+        $("#RemainingCredit").empty();
+        var teacherID = $("#TeacherID").val();
+        $.get("TeacherCredit", { TeacherId: teacherID },
+
+            function (data) {
+                $("#TeacherCredit").val(data.TeacherCredit);
+                $("#RemainingCredit").val(data.RemainingCredit);
+
+            })
+    })
+
+    $("#CourseID").change(function () {
+       
+        $("#CourseName").empty();
+        $("#CourseCredit").empty();
+        var CourseID = $("#CourseID").val();
+        $.get("CourseInfo", { CourseID: CourseID },
+
+            function (data) {
+                $("#CourseName").val(data.CourseName);
+                $("#CourseCredit").val(data.CourseCredit);
+
+            })
+    })
+    $(function () {
+        $('form#CourseAssign').submit(function () {
+            var remainingCredit = $("#RemainingCredit").val();
+            var assignCredit = $("#CourseCredit").val();
+            var Credit = Number(remainingCredit) - Number(assignCredit);
+            if (Credit < 0) {
+                return confirm("Course credit is more than teacher remaining credit. Do you agree to assign a teacher in this course?");
+            } else {
+                return true;
+            }
+        })
+    })
+
+</script>
+
+
+
+
+

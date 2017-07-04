@@ -1,0 +1,121 @@
+﻿@model UniversityManagementSystem.Models.RoomAlloted
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 150px;
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <div class="form-horizontal SizeA">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Allocate Class Room</div>
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(c => c.depCode, ViewBag.departments as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CourseID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CourseID", new SelectList(string.Empty, "Value", "Text"), "------Select Course------", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CourseID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.roomID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.roomID, ViewBag.rooms as IEnumerable<SelectListItem>, "------Select Room------", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.roomID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.dayID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.dayID, ViewBag.days as IEnumerable<SelectListItem>, "------Select Day------", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.dayID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <table class="form-group" style="margin-left:12%">
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Form, htmlAttributes: new { @class = "control-label col-md-1" })</td>
+                        <td>@Html.TextBoxFor(model => model.Form, new { @placeholder = "12:00" })</td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.StartPeriod, "AM")AM
+                            @Html.RadioButtonFor(m => m.StartPeriod, "PM")PM
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(model => model.Form, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.StartPeriod, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-1" })</td>
+                        <td>@Html.TextBoxFor(model => model.To, new { @placeholder = "12:00" })</td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.EndPeriod, "AM")AM
+                            @Html.RadioButtonFor(m => m.EndPeriod, "PM")PM
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.EndPeriod, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Allocate" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="col-md-offset-3 col-md-9" style="color:green">
+                @ViewBag.Message
+            </div>
+            <div class="col-md-offset-5 col-md-10" style="color:red">
+                @ViewBag.errMessage
+
+            </div>
+        </div>
+    </div>
+    
+}
+<script>
+    $(document).ready(function () {
+        $("#depCode").change(function () {
+
+            var depCode = $(this).val();
+            $("#CourseID").empty();
+            $.get("GetCourseByDepartment", { depCode: depCode }, function (data) {
+                $.each(data, function (c, course) {
+                    $("#CourseID").append('<option value="' + course.Value + '">' + course.Text + '</option>')
+                })
+
+            })
+        })
+
+
+    })
+</script>
+
+

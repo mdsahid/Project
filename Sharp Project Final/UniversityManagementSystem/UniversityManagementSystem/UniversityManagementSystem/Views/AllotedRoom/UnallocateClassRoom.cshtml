@@ -1,0 +1,44 @@
+﻿@*@model IEnumerable<UniversityManagementSystem.Models.AllotedRoom>*@
+@{
+    ViewBag.Title = "UnallocateClassRoom";
+}
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 400px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <br />
+    <br />
+    <br />
+   
+  
+        <div class="form-horizontal SizeA">
+            
+                <div class="col-md-offset-5 col-md-10">
+                    <input type="submit" class="btn btn-danger" value="Unallocate Rooms" onclick="return confirm('Are you Sure you unallocate all Classrooms?')" />
+                </div>
+
+           
+            <br />
+            <br />
+            <div class="col-md-offset-5 col-md-10" style="color:green">
+                @ViewBag.Message
+               
+            </div>
+            <div class="col-md-offset-5 col-md-10" style="color:red">
+                @ViewBag.errorMessage
+
+            </div>
+        </div>
+   
+}
+
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d7e77e424dc944cfa12665e670e40a44" Name="Diagram1">
+        <EntityTypeShape EntityType="UniversityDBModel.AllotedDay" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.AllotedRoom" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Course" Width="1.5" PointX="6" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.CourseAssign" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Department" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Designation" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Grade" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Result" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Room" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Semester" Width="1.5" PointX="3.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Student" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.StudentEnrolledCourse" Width="1.5" PointX="8.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityDBModel.Teacher" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="UniversityDBModel.FK__AllotedRo__dayID__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__AllotedRo__Cours__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__AllotedRo__depCo__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__AllotedRo__roomI__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Course__depCode__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Course__Semester__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__CourseAss__Cours__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Results__CourseI__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__StudentEn__Cours__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__CourseAss__depCo__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__CourseAss__Teach__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Student__depCode__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Teacher__depCode__1CF15040" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Teacher__Designa__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Results__gradeID__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__Results__Student__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityDBModel.FK__StudentEn__Stude__34C8D9D1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,66 @@
+﻿@model UniversityManagementSystem.Models.RoomAlloted
+
+@{
+    ViewBag.Title = "CourseSchedule";
+    List<string> code = ViewBag.CourseCode;
+    List<string> name = ViewBag.CourseName;
+    List<string> schedules = ViewBag.Schedules;
+}
+<style>
+    .SizeA {
+        overflow: hidden;
+        margin-bottom: 300px;
+    }
+</style>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<br />
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal SizeA">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">Show Course Schedule and Room info</div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.depCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(c => c.depCode, ViewBag.departments as IEnumerable<SelectListItem>, "-----Select Department-----", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.depCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Schedule Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0, j = code.Count; i < j; i++)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => code[i])</td>
+                            <td>@Html.DisplayFor(modelItem => name[i])</td>
+                            <td>@Html.DisplayFor(modelItem => schedules[i])</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#depCode').change(function () {
+            //alert('Test');
+            $(this).parents('form').submit();
+        });
+    });
+
+
+</script>
+
